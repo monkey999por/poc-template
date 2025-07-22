@@ -40,4 +40,19 @@ DONE: Hono導入、軌道
 
 # その他
  devcontainerの設定
- 
+
+
+# 後でメモ用
+- pnpm install 
+  ```
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
+  . ~/.bashrc
+  pnpm -v
+  ```
+
+  - turborepo install 
+  ```
+  pnpm add turbo --global
+  pnpm install
+  ```
+
