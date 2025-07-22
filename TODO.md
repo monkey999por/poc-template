@@ -5,6 +5,7 @@ DONE: remix導入、起動
 DONE: Hono導入、軌道
 
 
+
 # 開発環境整備
 - turborepoでの開発フローをREADMEに記載
 - remix, honoのローカル疎通確認
@@ -39,8 +40,10 @@ DONE: Hono導入、軌道
 
 
 # その他
- devcontainerの設定
-
+- devcontainerの設定
+- clauecode操作ログ管理設計(コンテキスト保持)
+- tailscaleによる遠隔開発と動作確認フロー
+---
 
 # 後でメモ用
 - pnpm install 
