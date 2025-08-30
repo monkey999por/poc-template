@@ -1,135 +1,147 @@
-# Turborepo starter
+# Turborepo開発プロジェクト
 
-This Turborepo starter is maintained by the Turborepo core team.
+このプロジェクトはTurborepoを使用したモノレポ構成で、複数のアプリケーションを効率的に管理・開発するためのテンプレートです。
 
-## Using this example
+## プロジェクト概要
 
-Run the following command:
+VSCode DevContainerによるコンテナ内開発をサポートし、一貫した開発環境を提供します。
 
-```sh
-npx create-turbo@latest
+## 開発環境セットアップ
+
+### 前提条件
+
+- Node.js 18以上
+- pnpm 10.13.1以上
+- VSCode（DevContainer使用時）
+- Docker（DevContainer使用時）
+
+### 初回セットアップ
+
+```bash
+# リポジトリをクローン
+git clone <repository-url>
+cd poc-template
+
+# 依存関係をインストール
+pnpm install
 ```
 
-## What's inside?
+## プロジェクト構成
 
-This Turborepo includes the following packages/apps:
+### アプリケーション
 
-### Apps and Packages
+- **`apps/api`**: [Hono](https://hono.dev/)を使用したAPIアプリケーション（Cloudflare Workers）
+  - フレームワーク: Hono v4.8.5
+  - ランタイム: Cloudflare Workers
+  - 開発サーバー: Wrangler
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- **`apps/web`**: [Remix](https://remix.run/)を使用したWebアプリケーション
+  - フレームワーク: Remix v2.16.8
+  - スタイリング: TailwindCSS
+  - バンドラー: Vite
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **`apps/docs`**: [Next.js](https://nextjs.org/)を使用したドキュメントサイト
+  - フレームワーク: Next.js
+  - スタイリング: CSS Modules
 
-### Utilities
+### パッケージ
 
-This Turborepo has some additional tools already setup for you:
+- **`packages/`**: 共有ライブラリとコンフィグレーション（今後追加予定）
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## 開発コマンド
 
-### Build
+### 全体開発
 
-To build all apps and packages, run the following command:
+```bash
+# 全アプリケーションの開発サーバーを起動
+pnpm dev
 
-```
-cd my-turborepo
+# 全アプリケーションをビルド
+pnpm build
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+# 全アプリケーションでリンティング実行
+pnpm lint
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+# 全アプリケーションで型チェック実行
+pnpm check-types
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+# コードフォーマット実行
+pnpm format
 ```
 
-### Develop
+### 個別アプリケーション開発
 
-To develop all apps and packages, run the following command:
+特定のアプリケーションのみを操作する場合は、Turborepoの`--filter`オプションを使用：
 
-```
-cd my-turborepo
+```bash
+# APIアプリのみ開発サーバー起動
+turbo dev --filter=api
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+# Webアプリのみビルド
+turbo build --filter=web
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+# ドキュメントアプリのみリンティング
+turbo lint --filter=docs
 ```
 
-### Remote Caching
+### ポート情報
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+各アプリケーションの開発時のアクセス先：
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- **API (Hono)**: `wrangler dev`で起動（ポートは自動割り当て）
+- **Web (Remix)**: `http://localhost:5173`（Vite dev server）
+- **Docs (Next.js)**: `http://localhost:3000`
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+## その他のコマンド
 
-```
-cd my-turborepo
+### リンティングと型チェック
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
+```bash
+# ESLintでコード品質をチェック
+pnpm lint
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
+# TypeScriptで型チェック実行
+pnpm check-types
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+# Prettierでコードフォーマット
+pnpm format
 ```
 
-## Useful Links
+### デプロイ
 
-Learn more about the power of Turborepo:
+```bash
+# APIアプリをCloudflare Workersにデプロイ
+cd apps/api
+pnpm deploy
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## VSCode DevContainer での開発
+
+1. VSCodeでプロジェクトを開く
+2. コマンドパレットから「Dev Containers: Reopen in Container」を実行
+3. コンテナ起動後、ターミナルで`pnpm install`を実行
+4. `pnpm dev`で開発開始
+
+## Turborepo の活用
+
+### キャッシュ機能
+
+Turborepoは実行結果をキャッシュし、変更のないタスクをスキップすることで開発効率を向上させます。
+
+### 並列実行
+
+複数のアプリケーションのビルドやテストを並列で実行し、時間を短縮します。
+
+### 依存関係管理
+
+アプリケーション間の依存関係を適切に管理し、必要な順序でタスクを実行します。
+
+## 参考リンク
+
+- [Turborepo ドキュメント](https://turbo.build/repo)
+- [Hono ドキュメント](https://hono.dev/)
+- [Remix ドキュメント](https://remix.run/docs)
+- [Next.js ドキュメント](https://nextjs.org/docs)
+- [Cloudflare Workers](https://developers.cloudflare.com/workers/)
+- [TailwindCSS](https://tailwindcss.com/docs)
+- [Vite](https://vitejs.dev/guide/)
