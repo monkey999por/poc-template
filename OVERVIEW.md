@@ -1,43 +1,53 @@
 ## このプロジェクトについて
+
 - AI（主にClaude Code）を使用した効率的なアプリケーション開発テンプレート
 - Bulletproof Reactの設計原則に基づいた堅牢なアーキテクチャ
 - モダンな技術スタックとベストプラクティスの採用
 
 ## 使用技術
+
 各ツールは基本的に最新版を利用し、設定等も最新の定義方法を利用すること
 
 ### パッケージ管理
+
 - **pnpm**: 高速で効率的なパッケージ管理
 - **Node.js (LTS)**: 安定性を重視したLTS版を使用
 
 ### 主要技術
+
 - **Remix**: フルスタックWebフレームワーク（SSR/SSG対応、Cloudflare Workers対応）
 - **TypeScript**: 型安全性の確保
 - **Tailwind CSS**: ユーティリティファーストのCSSフレームワーク
 - **Cloudflare Workers**: エッジコンピューティングプラットフォーム
 
 ### フォーム管理
+
 - **Remix標準Form API**: 基本的なフォーム処理
 - **Conform** (オプション): 高度なバリデーションが必要な場合に採用
   - Progressive Enhancementに対応
   - Zodとの統合でスキーマベースのバリデーション
 
 ### グローバルステート管理
+
 - **Remixのローダー/アクション**: サーバーサイドの状態管理
 - **Context API**: クライアントサイドの軽量な状態管理
 - **Zustand** (必要に応じて): 複雑なクライアント状態管理が必要な場合
 
 ### アニメーション管理
+
 当プロジェクトではアニメーションを積極的に活用し、優れたUXを提供する
+
 - **Framer Motion**: 複雑なアニメーションとジェスチャー
 - **Tailwind CSS Transitions**: シンプルなトランジション
 - **CSS Animations**: パフォーマンス重視の基本アニメーション
 
 ### コンポーネント管理
+
 - **Storybook**: コンポーネントの独立開発とドキュメント化
 - **Radix UI**: アクセシブルなヘッドレスコンポーネント
 
 ### 品質管理ツール
+
 - **ESLint**: コードの静的解析
 - **Prettier**: コードフォーマッター
 - **TypeScript**: 型チェック
@@ -45,17 +55,20 @@
 - **Playwright**: E2Eテスト
 
 ### Git管理
+
 - **Husky**: Git hooks管理
 - **lint-staged**: ステージングファイルのリント
 - **Conventional Commits**: コミットメッセージの標準化
 
 ### CI/CD
+
 - **CI**: GitHub Actions（ビルド、テスト、型チェック）
 - **CD**: Cloudflare Workers（自動デプロイ、プレビュー環境）
   - Wrangler CLIを使用したデプロイ
   - Pull Request毎のプレビュー環境自動生成
 
 ### ディレクトリ構成
+
 機能単位のコロケーション設計（Feature-based architecture）
 
 ```
@@ -92,17 +105,21 @@ poc-template/
 ```
 
 ### テンプレートコンポーネント
+
 [UIVerse](https://uiverse.io/)から選定したコンポーネントを`app/components/ui/`に配置
+
 - ボタン、カード、フォーム要素などの基本コンポーネント
 - プロジェクトのデザインシステムに合わせてカスタマイズ
 
 ### 開発環境
+
 - **ホストPC**: 直接開発可能
 - **VS Code Dev Container**: 統一された開発環境
   - 必要な拡張機能の自動インストール
   - 開発ツールの事前設定
 
 ### 開発フロー
+
 1. **要件定義**
    - 開発者が要望をプロンプトとして入力
    - Gemini CLIが詳細な要件を生成
@@ -130,12 +147,13 @@ poc-template/
    - 本番環境の監視（Cloudflare Analytics）
 
 ### インフラ環境
+
 - **IaC**: Terraformによるインフラ管理（Cloudflareリソース含む）
 - **ホスティング**: Cloudflare Workers（エッジコンピューティング）
   - グローバルな低レイテンシー配信
   - 自動スケーリング
   - DDoS保護標準装備
-- **データストレージ**: 
+- **データストレージ**:
   - Cloudflare KV（キーバリューストア）
   - Cloudflare D1（SQLiteベースのデータベース）
   - Cloudflare R2（オブジェクトストレージ）
@@ -143,6 +161,7 @@ poc-template/
 - **エラートラッキング**: Sentry
 
 ### セキュリティ
+
 - 環境変数による機密情報管理（Cloudflare Secrets）
 - CSRFトークンの実装
 - XSS対策（React/Remixのデフォルト機能）
@@ -150,6 +169,7 @@ poc-template/
 - Cloudflare WAFによる保護
 
 ### Cloudflare Workers固有の考慮事項
+
 - **制限事項**:
   - CPU時間: 10ms（無料）/ 30秒（有料）
   - メモリ: 128MB
@@ -159,6 +179,7 @@ poc-template/
 - **ローカル開発**: Wrangler Devによるエミュレーション
 
 ### パフォーマンス最適化
+
 - **エッジコンピューティング**: Cloudflare Workersによる世界中での低レイテンシー実行
 - **Smart Placement**: 自動的な最適リージョン配置
 - コード分割とLazy Loading
