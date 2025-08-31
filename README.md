@@ -1,126 +1,131 @@
-# Turborepo starter
+## 開発フロー
 
-This Turborepo starter is maintained by the Turborepo core team.
+### 1. 初期セットアップ
 
-## Using this example
+```bash
+# リポジトリのクローン
+git clone <repository-url>
+cd poc-template
 
-Run the following command:
+# Node.jsバージョンの確認（.nvmrcファイルを使用）
+nvm use
 
-```sh
-npx create-turbo@latest
+# 依存関係のインストール
+pnpm install
 ```
 
-## What's inside?
+### 2. 開発の基本コマンド
 
-This Turborepo includes the following packages/apps:
+```bash
+# 全てのアプリケーションを開発モードで起動
+pnpm dev
 
-### Apps and Packages
+# 特定のアプリケーションのみ起動
+pnpm turbo dev --filter=web
+pnpm turbo dev --filter=docs
+pnpm turbo dev --filter=api
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# 複数のアプリケーションを同時に起動
+pnpm turbo dev --filter=web --filter=api
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### 3. ビルドとテスト
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+```bash
+# 全てのパッケージをビルド
+pnpm build
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+# 特定のパッケージのみビルド
+pnpm turbo build --filter=web
 
-### Develop
+# Lintの実行
+pnpm lint
 
-To develop all apps and packages, run the following command:
+# 型チェックの実行
+pnpm check-types
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+# コードフォーマット
+pnpm format
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### 4. パッケージ間の依存関係
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+このmonorepoは以下の構造で依存関係が管理されています：
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+- **Apps** (`/apps/*`)
+  - `web`: メインのWebアプリケーション
+  - `docs`: ドキュメントサイト
+  - `api`: APIサーバー
+  - `web-temp`: 一時的なWebアプリケーション
 
-### Remote Caching
+- **Packages** (`/packages/*`)
+  - `@repo/ui`: 共有UIコンポーネントライブラリ
+  - `@repo/eslint-config`: 共通ESLint設定
+  - `@repo/typescript-config`: 共通TypeScript設定
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+### 5. 新しいパッケージの追加
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+```bash
+# 新しいアプリケーションの作成
+cd apps
+mkdir new-app
+cd new-app
+pnpm init
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# 共有パッケージの依存関係を追加
+pnpm add @repo/ui --workspace
+pnpm add @repo/eslint-config --workspace --save-dev
+pnpm add @repo/typescript-config --workspace --save-dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### 6. Turborepoのキャッシュ活用
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Turborepoは自動的にビルド結果をキャッシュします：
 
+```bash
+# キャッシュをクリア
+pnpm turbo clean
+
+# キャッシュの状態を確認
+pnpm turbo run build --dry-run
+
+# リモートキャッシュの設定（Vercelアカウントが必要）
+pnpm turbo login
+pnpm turbo link
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+### 7. 開発時のベストプラクティス
+
+1. **依存関係の管理**
+   - 共通の依存関係はルートの`package.json`に追加
+   - アプリ固有の依存関係は各アプリの`package.json`に追加
+   - 内部パッケージは`--workspace`フラグを使用
+
+2. **コードの共有**
+   - UIコンポーネントは`@repo/ui`に配置
+   - 共通のユーティリティ関数は新しいパッケージとして作成
+
+3. **設定の共有**
+   - TypeScript設定は`@repo/typescript-config`を継承
+   - ESLint設定は`@repo/eslint-config`を継承
+
+4. **並列実行の活用**
+   - Turborepoは依存関係を理解して最適な順序で並列実行
+   - `--concurrency`フラグで並列度を調整可能
+
+### 8. トラブルシューティング
+
+```bash
+# 依存関係の問題が発生した場合
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+
+# ポートの競合が発生した場合
+# 各アプリのpackage.jsonでポート番号を変更
+
+# ビルドエラーが発生した場合
+pnpm turbo clean
+pnpm build --force
 ```
 
 ## Useful Links

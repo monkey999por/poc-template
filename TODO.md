@@ -1,13 +1,14 @@
 # 初期化系
 
-DONE: turborepo導入
-DONE: remix導入、起動
-DONE: Hono導入、軌道
+[DONE]: turborepo導入
+[DONE]: remix導入、起動
+[DONE]: Hono導入、軌道
 
 # 開発環境整備
 
-- turborepoでの開発フローをREADMEに記載
-- remix, honoのローカル疎通確認
+- [DONE]: turborepoでの開発フローをREADMEに記載
+- devcontainerの設定
+- [DONE]remix, honoのローカル疎通確認
 - remixのデプロイci作成
 - Honoのデプロイci作成
 - デプロイフローをREADMEに記載
@@ -21,11 +22,11 @@ DONE: Hono導入、軌道
 - 相対import設定
 - supabase導入
 - prisma導入
-- DONE: Githubにclaude code action設定
-- DONE: nodeやpnpmのバージョンを固定
+- [DONE]: Githubにclaude code action設定
+- [DONE]: nodeやpnpmのバージョンを固定
 - logsの設定
 - agentsの並列開発の設定
-- DONE: serena導入
+- [DONE]: serena導入
 - serenaの更新設定
 
 # テンプレート作成
@@ -43,7 +44,6 @@ DONE: Hono導入、軌道
 
 # その他
 
-- devcontainerの設定
 - clauecode操作ログ管理設計(コンテキスト保持)
 - tailscaleによる遠隔開発と動作確認フロー
 
@@ -72,3 +72,14 @@ delみたいに、パターン化されたコンポーネント構成/ファイ�
 - APIの粒度
 
 cdしたときに`nvm use`を実行する
+
+## サブエージェントの並列実行メモ
+
+```
+@agent-naming-checker と @agent-performance-analyzer を同時に起動して、最新のコミットをレビューして
+
+---
+
+サブエージェントが並列で起動されていることを確認し、もしされていない場合は起動されていないものを即時起動すること
+
+```
