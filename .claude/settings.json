@@ -26,8 +26,25 @@
       "mcp__notionApi__API-retrieve-a-page",
       "mcp__notionApi__API-get-block-children"
     ],
-    "deny": ["Bash(git push origin main:*)"],
-    "enabledMcpjsonServers": ["notionApi"],
+    "deny": [
+      "Bash(git push origin main:*)"
+    ],
+    "enabledMcpjsonServers": [
+      "notionApi"
+    ],
     "enableAllProjectMcpServers": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm format"
+          }
+        ]
+      }
+    ]
   }
 }

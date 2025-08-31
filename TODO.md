@@ -22,9 +22,11 @@ DONE: Hono導入、軌道
 - supabase導入
 - prisma導入
 - DONE: Githubにclaude code action設定
-- nodeやpnpmのバージョンを固定
+- DONE: nodeやpnpmのバージョンを固定
 - logsの設定
 - agentsの並列開発の設定
+- DONE: serena導入
+- serenaの更新設定
 
 # テンプレート作成
 
@@ -68,3 +70,5 @@ delみたいに、パターン化されたコンポーネント構成/ファイ�
 
 - データの流入
 - APIの粒度
+
+cdしたときに`nvm use`を実行する
