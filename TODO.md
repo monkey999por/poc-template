@@ -7,7 +7,7 @@
 # 開発環境整備
 
 - [DONE]: turborepoでの開発フローをREADMEに記載
-- devcontainerの設定
+- [DONE]: devcontainerの設定
 - [DONE]remix, honoのローカル疎通確認
 - remixのデプロイci作成
 - Honoのデプロイci作成

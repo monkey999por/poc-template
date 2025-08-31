@@ -1,6 +1,84 @@
 ## 開発フロー
 
-### 1. 初期セットアップ
+### Dev Container を使用した開発（推奨）
+
+#### 前提条件
+
+- Docker Desktop または Docker Engine がインストール済み
+- Visual Studio Code がインストール済み
+- VS Code拡張機能「Dev Containers」がインストール済み
+
+#### 初回セットアップ
+
+1. **リポジトリのクローン**
+
+```bash
+git clone <repository-url>
+cd poc-template
+```
+
+2. **VS CodeでDev Containerを起動**
+
+- VS Codeでプロジェクトを開く
+- 左下の「><」アイコンをクリック、または`Cmd/Ctrl + Shift + P`で「Dev Containers: Reopen in Container」を選択
+- 初回ビルドには数分かかります
+
+3. **コンテナ内での作業**
+   コンテナが起動すると自動的に：
+
+- pnpm installが実行される
+- Node.js 22、pnpm、Turborepoがインストール済み
+- ZSH、Git、その他開発ツールが利用可能
+
+#### コンテナ内での開発コマンド
+
+```bash
+
+すべて、sudoありで実行してください。
+
+# 全アプリケーションを起動
+pnpm dev
+
+# 個別のアプリケーションを起動
+pnpm turbo dev --filter=web      # Remix (http://localhost:5173)
+pnpm turbo dev --filter=web-temp # Next.js (http://localhost:3000)
+pnpm turbo dev --filter=docs     # Docs (http://localhost:3001)
+pnpm turbo dev --filter=api      # API (http://localhost:8787)
+
+# ビルド
+pnpm build
+
+# Lint & Format
+pnpm lint
+pnpm format
+
+# 型チェック
+pnpm check-types
+```
+
+#### ポートフォワーディング
+
+以下のポートが自動的にホストOSに転送されます：
+
+- 3000: web-temp (Next.js)
+- 3001: docs (Next.js)
+- 5173: web (Remix)
+- 8787: api (Cloudflare Workers)
+
+VS Codeの「ポート」タブで転送状況を確認できます。
+
+#### sudoの使用
+
+開発環境なのでnodeユーザーはパスワードなしでsudoを使用できます：
+
+```bash
+sudo apt-get update
+sudo apt-get install <package>
+```
+
+### ローカル環境での開発（代替手段）
+
+#### 1. 初期セットアップ
 
 ```bash
 # リポジトリのクローン
@@ -114,6 +192,29 @@ pnpm turbo link
    - `--concurrency`フラグで並列度を調整可能
 
 ### 8. トラブルシューティング
+
+#### Dev Container関連
+
+```bash
+# コンテナのリビルド
+# VS Code: Cmd/Ctrl + Shift + P → "Dev Containers: Rebuild Container"
+
+# パーミッションエラーが発生した場合
+sudo chown -R node:node .
+chmod -R 755 .
+
+# Turboキャッシュエラーが発生した場合
+rm -rf .turbo
+mkdir -p .turbo/cache
+pnpm turbo clean
+
+# ポートが既に使用されている場合
+# VS Codeの「ポート」タブで確認し、必要に応じて転送を停止
+lsof -i :3000  # ポート使用状況を確認
+kill -9 <PID>  # 必要に応じてプロセスを終了
+```
+
+#### 一般的な問題
 
 ```bash
 # 依存関係の問題が発生した場合

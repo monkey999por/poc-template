@@ -8,7 +8,16 @@
       "mcp__serena__find_file",
       "mcp__serena__think_about_collected_information",
       "mcp__serena__write_memory",
-      "mcp__serena__think_about_whether_you_are_done"
+      "mcp__serena__think_about_whether_you_are_done",
+      "Bash(turbo:*)",
+      "Bash(node:*)",
+      "Bash(prettier --version)",
+      "Bash(typescript --version)",
+      "Bash(tsc --version)",
+      "Bash(jq:*)",
+      "Bash(docker build:*)",
+      "Bash(curl:*)",
+      "Bash(chmod:*)"
     ]
   }
 }

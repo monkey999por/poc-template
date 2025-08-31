@@ -43,16 +43,22 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
 ENV DEVCONTAINER=true
 
 # Create workspace and config directories and set permissions
-RUN mkdir -p /workspace /home/node/.claude && \
-  chown -R node:node /workspace /home/node/.claude
+RUN mkdir -p /workspace /home/node/.claude /home/node/.local/share/pnpm && \
+  chown -R node:node /workspace /home/node && \
+  chmod 777 /workspace
 
 WORKDIR /workspace
 
 ARG GIT_DELTA_VERSION=0.18.2
 RUN ARCH=$(dpkg --print-architecture) && \
   wget "https://github.com/dandavison/delta/releases/download/${GIT_DELTA_VERSION}/git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
-  sudo dpkg -i "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
+  dpkg -i "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
   rm "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb"
+
+# Install pnpm globally and configure corepack as root
+RUN npm install -g pnpm@10.15.0 && \
+    corepack enable && \
+    corepack prepare pnpm@10.15.0 --activate
 
 # Set up non-root user
 USER node
@@ -60,6 +66,8 @@ USER node
 # Install global packages
 ENV NPM_CONFIG_PREFIX=/usr/local/share/npm-global
 ENV PATH=$PATH:/usr/local/share/npm-global/bin
+ENV PNPM_HOME=/usr/local/share/pnpm
+ENV PATH=$PATH:$PNPM_HOME
 
 # Set the default shell to zsh rather than sh
 ENV SHELL=/bin/zsh
@@ -78,14 +86,18 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
   -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
   -x
 
-# Install Claude
-RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+# Install Claude, Turbo and other development tools
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION} turbo@latest prettier@latest typescript@latest
 
 
-# Copy and set up firewall script
-COPY init-firewall.sh /usr/local/bin/
+# Setup sudo for node user without password (development environment)
 USER root
-RUN chmod +x /usr/local/bin/init-firewall.sh && \
-  echo "node ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh" > /etc/sudoers.d/node-firewall && \
-  chmod 0440 /etc/sudoers.d/node-firewall
+RUN echo "node ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/node && \
+  chmod 0440 /etc/sudoers.d/node
+
+# Copy and set up firewall script (optional)
+COPY init-firewall.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/init-firewall.sh || true
+
 USER node
+WORKDIR /workspace

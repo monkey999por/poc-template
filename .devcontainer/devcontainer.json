@@ -9,10 +9,6 @@
         "ZSH_IN_DOCKER_VERSION": "1.2.0"
       }
     },
-    "runArgs": [
-      "--cap-add=NET_ADMIN",
-      "--cap-add=NET_RAW"
-    ],
     "customizations": {
       "vscode": {
         "extensions": [
@@ -43,15 +39,38 @@
     "remoteUser": "node",
     "mounts": [
       "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-      "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume"
+      "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
+      "source=pnpm-store-${devcontainerId},target=/home/node/.local/share/pnpm/store,type=volume",
+      "source=turbo-cache-${devcontainerId},target=/workspace/.turbo,type=volume"
     ],
     "containerEnv": {
       "NODE_OPTIONS": "--max-old-space-size=4096",
       "CLAUDE_CONFIG_DIR": "/home/node/.claude",
-      "POWERLEVEL9K_DISABLE_GITSTATUS": "true"
+      "POWERLEVEL9K_DISABLE_GITSTATUS": "true",
+      "TURBO_TELEMETRY_DISABLED": "1",
+      "UMASK": "0022"
     },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
     "workspaceFolder": "/workspace",
-    "postStartCommand": "sudo /usr/local/bin/init-firewall.sh",
+    "forwardPorts": [3000, 3001, 5173, 8787],
+    "portsAttributes": {
+      "3000": {
+        "label": "web-temp (Next.js)",
+        "onAutoForward": "notify"
+      },
+      "3001": {
+        "label": "docs (Next.js)", 
+        "onAutoForward": "notify"
+      },
+      "5173": {
+        "label": "web (Remix)",
+        "onAutoForward": "notify"
+      },
+      "8787": {
+        "label": "api (Cloudflare Workers)",
+        "onAutoForward": "notify"
+      }
+    },
+    "postStartCommand": "pnpm install",
     "waitFor": "postStartCommand"
   }
