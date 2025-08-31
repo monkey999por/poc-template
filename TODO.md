@@ -9,8 +9,8 @@
 - [DONE]: turborepoでの開発フローをREADMEに記載
 - [DONE]: devcontainerの設定
 - [DONE]remix, honoのローカル疎通確認
-- remixのデプロイci作成
-- Honoのデプロイci作成
+- [PROGRESS]: remixのデプロイci作成
+- [PROGRESS]: Honoのデプロイci作成
 - デプロイフローをREADMEに記載
 - 設定見直し
   - tsconfig
@@ -45,7 +45,6 @@
 # その他
 
 - clauecode操作ログ管理設計(コンテキスト保持)
-- tailscaleによる遠隔開発と動作確認フロー
 
 ---
 

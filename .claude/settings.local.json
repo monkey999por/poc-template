@@ -17,7 +17,12 @@
       "Bash(jq:*)",
       "Bash(docker build:*)",
       "Bash(curl:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "mcp__serena__search_for_pattern",
+      "Bash(rm:*)",
+      "Bash(npx tsc:*)",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__find_symbol"
     ]
   }
 }
