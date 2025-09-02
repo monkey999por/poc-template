@@ -21,7 +21,7 @@
 - tailwindのintelisenseが効いているか
 - 相対import設定
 - supabase導入
-- prisma導入
+- prisma導入 -> drizzleに変更
 - [DONE]: Githubにclaude code action設定
 - [DONE]: nodeやpnpmのバージョンを固定
 - logsの設定
