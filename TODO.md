@@ -11,6 +11,7 @@
 - [DONE]remix, honoのローカル疎通確認
 - [PROGRESS]: remixのデプロイci作成
 - [PROGRESS]: Honoのデプロイci作成
+- cloudflareの無料枠超過の停止設定
 - デプロイフローをREADMEに記載
 - 設定見直し
   - tsconfig

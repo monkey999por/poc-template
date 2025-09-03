@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250831.0",
     "@remix-run/dev": "^2.16.8",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -31,11 +32,14 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "install": "^0.13.0",
+    "npm": "^11.5.2",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.1.6",
     "vite": "^6.0.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "wrangler": "^4.25.0"
   },
   "engines": {
     "node": ">=20.0.0"
