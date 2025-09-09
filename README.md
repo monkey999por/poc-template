@@ -88,6 +88,11 @@ cd poc-template
 # Node.jsバージョンの確認（.nvmrcファイルを使用）
 nvm use
 
+# 権限を緩くする
+sudo chown -R monkey999 ./
+sudo chmod -R 755 ./
+
+
 # 依存関係のインストール
 pnpm install
 ```
