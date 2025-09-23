@@ -8,7 +8,7 @@
 
 - Always use descriptive variable names
 
-## AI運用5原則
+## AI適用4原則
 
 第1原則： AIは迂回や別アプローチを勝手に行わず、最初の計画が失敗したら次の計画の確認を取る。
 
@@ -20,7 +20,7 @@
 </law>
 
 <every_chat>
-[AI運用5原則]
+[AI適用4原則]
 
 [main_output]
 

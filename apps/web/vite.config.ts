@@ -9,6 +9,10 @@ declare module "@remix-run/cloudflare" {
 }
 
 export default defineConfig({
+  server: {
+    host: "0.0.0.0",
+    port: 5173,
+  },
   plugins: [
     remix({
       future: {
