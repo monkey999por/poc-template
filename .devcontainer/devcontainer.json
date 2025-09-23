@@ -48,7 +48,8 @@
       "CLAUDE_CONFIG_DIR": "/home/node/.claude",
       "POWERLEVEL9K_DISABLE_GITSTATUS": "true",
       "TURBO_TELEMETRY_DISABLED": "1",
-      "UMASK": "0022"
+      "UMASK": "0022",
+      "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
     },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
     "workspaceFolder": "/workspace",
@@ -56,10 +57,6 @@
     "portsAttributes": {
       "3000": {
         "label": "web-temp (Next.js)",
-        "onAutoForward": "notify"
-      },
-      "3001": {
-        "label": "docs (Next.js)", 
         "onAutoForward": "notify"
       },
       "5173": {
@@ -71,6 +68,7 @@
         "onAutoForward": "notify"
       }
     },
-    "postStartCommand": "pnpm install",
+    "postStartCommand": "echo 'DevContainer started successfully'",
+    "postCreateCommand": "pnpm install --frozen-lockfile",
     "waitFor": "postStartCommand"
   }
