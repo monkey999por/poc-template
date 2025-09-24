@@ -69,6 +69,6 @@
     }
   },
   "postStartCommand": "echo 'DevContainer started successfully'",
-  "postCreateCommand": "pnpm install --frozen-lockfile",
+  "postCreateCommand": "pnpm install",
   "waitFor": "postStartCommand"
 }
