@@ -4,9 +4,12 @@
  * For more information, see https://remix.run/file-conventions/entry.server
  */
 
-import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
+import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
-import { renderToString } from "react-dom/server";
+import { renderToPipeableStream } from "react-dom/server";
+import { PassThrough } from "node:stream";
+
+const ABORT_DELAY = 5_000;
 
 export default function handleRequest(
   request: Request,
@@ -15,14 +18,35 @@ export default function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext,
 ) {
-  const markup = renderToString(
-    <RemixServer context={remixContext} url={request.url} />
-  );
+  return new Promise((resolve, reject) => {
+    let shellRendered = false;
+    const { pipe, abort } = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} />,
+      {
+        onShellReady() {
+          shellRendered = true;
+          const body = new PassThrough();
+          responseHeaders.set("Content-Type", "text/html");
+          resolve(
+            new Response(body as any, {
+              headers: responseHeaders,
+              status: responseStatusCode,
+            }),
+          );
+          pipe(body);
+        },
+        onShellError(error: unknown) {
+          reject(error);
+        },
+        onError(error: unknown) {
+          responseStatusCode = 500;
+          if (shellRendered) {
+            console.error(error);
+          }
+        },
+      },
+    );
 
-  responseHeaders.set("Content-Type", "text/html");
-
-  return new Response("<!DOCTYPE html>" + markup, {
-    headers: responseHeaders,
-    status: responseStatusCode,
+    setTimeout(abort, ABORT_DELAY);
   });
 }
