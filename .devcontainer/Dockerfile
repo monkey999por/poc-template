@@ -55,10 +55,8 @@ RUN ARCH=$(dpkg --print-architecture) && \
   dpkg -i "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
   rm "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb"
 
-# Install pnpm globally and configure corepack as root
-RUN npm install -g pnpm@10.15.0 && \
-    corepack enable && \
-    corepack prepare pnpm@10.15.0 --activate
+# Install pnpm globally
+RUN npm install -g pnpm@latest
 
 # Set up non-root user
 USER node

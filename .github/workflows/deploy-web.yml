@@ -1,0 +1,66 @@
+name: Deploy Web to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - ".github/workflows/deploy-web.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.15.0"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build application
+        run: pnpm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: "poc-template"
+          directory: "apps/web/build/client"
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # SSRサポート確認のための追加ステップ
+      - name: Verify SSR build
+        run: |
+          echo "Checking SSR build output..."
+          ls -la apps/web/build/
+          if [ -d "apps/web/build/server" ]; then
+            echo "✅ SSR server build found"
+            ls -la apps/web/build/server/
+          else
+            echo "❌ SSR server build not found"
+            exit 1
+          fi
+          if [ -d "apps/web/build/client" ]; then
+            echo "✅ Client build found"
+          else
+            echo "❌ Client build not found"
+            exit 1
+          fi
