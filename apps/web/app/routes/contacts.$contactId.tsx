@@ -1,12 +1,6 @@
-import {
-  Form,
-  Scripts,
-  useFetcher,
-  useLoaderData,
-  useSubmit,
-} from "@remix-run/react";
+import { Form, Scripts, useFetcher, useLoaderData, useSubmit } from "react-router";
 import { useEffect, type FunctionComponent } from "react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import invariant from "tiny-invariant";
 
 import { getContact, updateContact, type ContactRecord } from "../data";

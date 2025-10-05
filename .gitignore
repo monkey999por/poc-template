@@ -85,3 +85,6 @@ e2e-results/
 DEPLOY_TEST_GUIDE.md
 
 .serena
+
+
+.react-router/

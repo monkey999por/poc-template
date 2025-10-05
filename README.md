@@ -1,6 +1,6 @@
 ### 環境構築
 
-いずれかの方法で構築してください。
+いずれかの方法で構築してください
 
 - [devcontainer](/docs/dev/devcontainer.md)
 - [HOST PC](/docs/dev/host_pc.md)

@@ -1,9 +1,8 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "react-router";
+import { redirect } from "react-router";
 import {
   Form,
   Links,
-  LiveReload,
   Meta,
   NavLink,
   Outlet,
@@ -12,7 +11,7 @@ import {
   useLoaderData,
   useNavigation,
   useSubmit,
-} from "@remix-run/react";
+} from "react-router";
 import { useEffect } from "react";
 
 import appStylesHref from "./app.css?url";
@@ -129,7 +128,6 @@ export default function App() {
         </div>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
