@@ -41,7 +41,7 @@ const fakeContacts = {
   async create(values: ContactMutation): Promise<ContactRecord> {
     const id = values.id || Math.random().toString(36).substring(2, 9);
     const createdAt = new Date().toISOString();
-    const newContact = { id, createdAt, ...values };
+    const newContact = { createdAt, ...values };
     fakeContacts.records[id] = newContact;
     return newContact;
   },
@@ -74,7 +74,7 @@ export async function getContacts(query?: string | null) {
 }
 
 export async function createEmptyContact() {
-  const contact = await fakeContacts.create({});
+  const contact = await fakeContacts.create({} as ContactMutation);
   return contact;
 }
 
@@ -312,7 +312,7 @@ export async function deleteContact(id: string) {
   },
 ].forEach((contact) => {
   fakeContacts.create({
-    ...contact,
+    ...contact as ContactMutation,
     id: `${contact.first.toLowerCase()}-${contact.last.toLocaleLowerCase()}`,
   });
 });
