@@ -83,4 +83,5 @@ e2e-results/
 
 # Deployment guides (temporary)
 DEPLOY_TEST_GUIDE.md
-**/*/.serena/
+
+.serena
