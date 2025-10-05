@@ -1,10 +1,9 @@
-
 ### 環境構築
+
 いずれかの方法で構築してください。
 
 - [devcontainer](/docs/dev/devcontainer.md)
 - [HOST PC](/docs/dev/host_pc.md)
-
 
 ### 構造
 
@@ -20,7 +19,6 @@
   - `@repo/ui`: 共有UIコンポーネントライブラリ
   - `@repo/eslint-config`: 共通ESLint設定
   - `@repo/typescript-config`: 共通TypeScript設定
-
 
 ### 開発時のベストプラクティス
 

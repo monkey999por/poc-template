@@ -25,8 +25,7 @@
 
 > [!CAUTION]
 > すべて、sudoありで実行してください。
-[commands.md](/docs/dev/commands.md)
-
+> [commands.md](/docs/dev/commands.md)
 
 ### ポートフォワーディング
 
