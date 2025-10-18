@@ -1,3 +1,5 @@
+@import "tailwindcss" source(".");
+
 html {
     box-sizing: border-box;
   }

@@ -53,14 +53,14 @@
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace",
-  "forwardPorts": [3000, 5173, 8787, 8002],
+  "forwardPorts": [4174,5173, 8787, 8002],
   "portsAttributes": {
     "5173": {
-      "label": "web (Remix dev)",
+      "label": "web (React Router dev)",
       "onAutoForward": "notify"
     },
-    "3000": {
-      "label": "docs (Remix prod)",
+    "4174": {
+      "label": "web (React Router preview)",
       "onAutoForward": "notify"
     },
     "8787": {

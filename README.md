@@ -13,7 +13,6 @@
   - `web`: メインのWebアプリケーション
   - `docs`: ドキュメントサイト
   - `api`: APIサーバー
-  - `web-temp`: 一時的なWebアプリケーション
 
 - **Packages** (`/packages/*`)
   - `@repo/ui`: 共有UIコンポーネントライブラリ

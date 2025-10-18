@@ -31,7 +31,6 @@
 
 以下のポートが自動的にホストOSに転送されます：
 
-- 3000: web-temp (Next.js)
 - 3001: docs (Next.js)
 - 5173: web (Remix)
 - 8787: api (Cloudflare Workers)

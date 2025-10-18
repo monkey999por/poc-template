@@ -7,7 +7,6 @@ pnpm dev
 
 # 個別のアプリケーションを起動
 pnpm dev --filter=web      # Remix (http://localhost:5173)
-pnpm dev --filter=web-temp # Next.js (http://localhost:3000)
 pnpm dev --filter=api      # API (http://localhost:8787)
 
 # ビルド

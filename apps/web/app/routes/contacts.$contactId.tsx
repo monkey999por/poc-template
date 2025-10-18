@@ -1,4 +1,10 @@
-import { Form, Scripts, useFetcher, useLoaderData, useSubmit } from "react-router";
+import {
+  Form,
+  Scripts,
+  useFetcher,
+  useLoaderData,
+  useSubmit,
+} from "react-router";
 import { useEffect, type FunctionComponent } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import invariant from "tiny-invariant";

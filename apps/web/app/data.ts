@@ -312,7 +312,7 @@ export async function deleteContact(id: string) {
   },
 ].forEach((contact) => {
   fakeContacts.create({
-    ...contact as ContactMutation,
+    ...(contact as ContactMutation),
     id: `${contact.first.toLowerCase()}-${contact.last.toLocaleLowerCase()}`,
   });
 });
