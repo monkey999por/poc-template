@@ -84,7 +84,7 @@ export async function getContact(id: string) {
 
 export async function updateContact(
   id: string,
-  updates: Partial<ContactMutation>,
+  updates: Partial<ContactMutation>
 ) {
   const contact = await fakeContacts.get(id);
   if (!contact) {
@@ -101,7 +101,7 @@ export async function deleteContact(id: string) {
   {
     avatar:
       "https://sessionize.com/image/124e-400o400o2-wHVdAuNaxi8KJrgtN3ZKci.jpg",
-    first: "Shruti",
+    first: "Shruti test deploy",
     last: "Kapoor",
     twitter: "@shrutikapoor08",
   },
