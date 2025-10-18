@@ -243,7 +243,7 @@ export async function deleteContact(id: string) {
   {
     avatar:
       "https://sessionize.com/image/30f1-400o400o2-wJBdJ6sFayjKmJycYKoHSe.jpg",
-    first: "Clifford",
+    first: "Clifford test hoge",
     last: "Fajardo",
     twitter: "@cliffordfajard0",
   },

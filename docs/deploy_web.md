@@ -1,0 +1,2 @@
+
+cloudflareにgithub接続してるのでmain pushで自動デプロイされる
