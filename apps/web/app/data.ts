@@ -115,7 +115,7 @@ export async function deleteContact(id: string) {
   {
     avatar:
       "https://sessionize.com/image/9273-400o400o2-3tyrUE3HjsCHJLU5aUJCja.jpg",
-    first: "Ryan",
+    first: "Ryan is preview",
     last: "Florence",
   },
   {
